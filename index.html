@@ -100,6 +100,7 @@ URL: https://code.google.com/p/io-2012-slides
   	</article>
   </slide>
   
+<!--   Abstract Factory  -->
   <slide>
   	<hgroup>
 	  	<h2>Abstract Factory (aka Kit)</h2>
@@ -131,22 +132,72 @@ layoutFactory.prototype = {
   	</article>
   </slide>
  
- <slide>
-   <hgroup>
-     <h2>Abstract Factory</h2>
-     <h3>Плюсы</h3>
-   </hgroup>
-   <article>
-     <ul>
-       <li>Изолирует конкретные классы</li>
-       <li>упрощает замену классов</li>
-       <li>гарантирует сочетаемость</li>
-       <li>сложность поддержки нового вида</li>
-       <li>фабрики как обекты, существующие в 1 экземпляре</li>
-     </ul>
-   </article>
- </slide> 
+  <slide>
+    <hgroup>
+      <h2>Abstract Factory</h2>
+      <h3>Особенности</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Изолирует конкретные классы</li>
+        <li>упрощает замену классов</li>
+        <li>гарантирует сочетаемость</li>
+        <li>сложность поддержки нового вида</li>
+        <li>фабрики как обекты, существующие в 1 экземпляре</li>
+      </ul>
+    </article>
+  </slide> 
+  
+<!--   Builder -->
+  <slide>
+  	<hgroup>
+	  	<h2>Builder</h2>
+	  	<h3>Порождающие паттерны</h3>
+  	</hgroup>
+  	<article>
+	    Отделяет конструирование сложного обекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	
+    </article>
+  </slide>
+  
+  <slide>
+  	<hgroup>
+	  	<h2>Builder</h2>
+	  	<h3>Как реализовать в JS</h3>
+  	</hgroup>
+  	<article class="smaller">
+  	  <pre class="prettyprint" data-lang="javascript">
+var GeoObject = function (parameters) { 
+  this._type = parameters.type || 'point'; 
+  this.build(); 
+};
 
+GeoObject.prototype = {
+  <b>build: function () {
+    var geometry;
+    switch (this._type) {
+      case: 'point': geometry = new ymaps.geometry.Point(data); break;
+      case: 'circle': geometry = new ymaps.geometry.Circle(data); break; 
+    }
+    this._geometry = geometry;
+  }</b>
+};</pre>
+      <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/GeoObject.xml">GeoObject</a></footer>
+  	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Bulder</h2>
+      <h3>Особенности</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>позволяет изменять внутреннее представление</li>
+        <li>изолирует код, реализующий конструирование</li>
+        <li>дает более тонкий контроль над процессом конструирования</li>
+      </ul>
+    </article>
+  </slide> 
 
 <!-- end presentation slides -->
 
