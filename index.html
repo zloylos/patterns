@@ -30,7 +30,7 @@ URL: https://code.google.com/p/io-2012-slides
   <slide class="logoslide nobackground">
     <article class="flexbox vcenter">
       <span><img src="images/yandex_eng_logo.svg"></span>
-	  <footer class="source">Техновстречи</footer>
+	  <footer class="source">Техновстречи Яндекс.Карт</footer>
     </article>
   </slide>
 
@@ -46,8 +46,106 @@ URL: https://code.google.com/p/io-2012-slides
 
 
 <!-- start presentation slides -->
+<!--   slide>hgroup+article -->
   
+  <slide>
+  	<hgroup>
+	  	<h2>Что такое паттерн проектирования?</h2>
+  	</hgroup>
+  	<article>
+	  	<blockquote class="centered" style="margin-top: 4em;">
+		  	Повторимая архитектурная конструкция, представляющая собой решение проблемы проектирования в рамках некоторого часто возникающего контекста.
+	  	</blockquote>
+	  	<footer class="source">© Вики (ru.wikipedia.org/wiki/Шаблон_проектирования)</footer>
+  	</article>
+  </slide>
 
+  <slide class="fill nobackground" style="background: url(images/gifs/copy-copy-copy.gif) 50%;">
+    <hgroup>
+      <h2 class="white">Антивелосипеднось</h2>
+    </hgroup>
+  </slide>
+
+  <slide>
+  	<hgroup>
+	  	<h2>Виды паттернов</h2>
+  	</hgroup>
+  	<article>
+	  	<ul>
+	  		<li>Порождающие</li>
+	  		<li>Структурные</li>
+	  		<li>Поведенческие</li>
+	  	</ul>
+  	</article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/gifs/fabric.gif);">
+    <hgroup>
+      <h2 class="white">Порождающие паттерны</h2>
+    </hgroup>
+  </slide>
+  
+  <slide>
+  	<hgroup>
+	  	<h2>Порождающие паттерны</h2>
+  	</hgroup>
+  	<article>
+	  	<ul>
+	  		<li>Abstract Factory</li>
+	  		<li>Builder</li>
+	  		<li>Factory Method</li>
+	  		<li>Prototype</li>
+	  		<li>Singleton</li>
+	  	</ul>
+  	</article>
+  </slide>
+  
+  <slide>
+  	<hgroup>
+	  	<h2>Abstract Factory (aka Kit)</h2>
+	  	<h3>Порождающие паттерны</h3>
+  	</hgroup>
+  	<article>
+	  	Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых обектов, не специфицируя их конкретных классов.
+  	</article>
+  </slide>
+
+  <slide>
+  	<hgroup>
+	  	<h2>Abstract Factory</h2>
+	  	<h3>Как реализовать в JS</h3>
+  	</hgroup>
+  	<article>
+  	  <pre class="prettyprint" data-lang="javascript">
+var layoutFactory = {};
+layoutFactory.prototype = {
+  LayoutClass: ymaps.Layout,
+  <b>createLayout: function (html) { 
+    var layout = new LayoutClass(html);
+    layout.options.set('name', 'Layout Factory item');
+    return layout;
+  }</b>
+};
+      </pre>
+      <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/templateLayoutFactory.xml">templateLayoutFactory</a></footer>
+  	</article>
+  </slide>
+ 
+ <slide>
+   <hgroup>
+     <h2>Abstract Factory</h2>
+     <h3>Плюсы</h3>
+   </hgroup>
+   <article>
+     <ul>
+       <li>Изолирует конкретные классы</li>
+       <li>упрощает замену классов</li>
+       <li>гарантирует сочетаемость</li>
+       <li>сложность поддержки нового вида</li>
+       <li>фабрики как обекты, существующие в 1 экземпляре</li>
+     </ul>
+   </article>
+ </slide> 
 
 
 <!-- end presentation slides -->

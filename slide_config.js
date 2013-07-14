@@ -1,7 +1,7 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'Паттерны проектирования<br>и их реализация на JavaScript',
+    title: 'Паттерны проектирования.<br>Реализация на JavaScript',
     subtitle: '',
     useBuilds: true, // Default: true. False will turn off slide animation builds.
     usePrettify: true, // Default: true

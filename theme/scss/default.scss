@@ -272,19 +272,18 @@ a {
 }
 
 h1, h2, h3 {
+  font-family: "PT Sans Narrow";
   font-weight: 600;
 }
 
 h2 {
-  font-size: 45px;
-  line-height: 45px;
-  letter-spacing: -2px;
+  font-size: 50px;
+  line-height: 1.4em;
   color: $gray-4;
 }
 
 h3 {
   font-size: 30px;
-  letter-spacing: -1px;
   line-height: 2;
   font-weight: inherit;
   color: $gray-3;
@@ -879,7 +878,6 @@ aside.gdbar {
     h1 {
       font-size: 65px;
       line-height: 1.4;
-      letter-spacing: -3px;
       color: $gray-4;
     }
 

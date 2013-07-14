@@ -38,7 +38,13 @@ slides > slide {
   }
 
   article {
-	  font-size: 1.3em !important;
+	  font-size: 1.4em !important;
 	  line-height: 1.5em;
+	  
+	  blockquote {
+		  font-weight: normal;
+		  font-style: italic;
+	  }
   }
+  
 }
