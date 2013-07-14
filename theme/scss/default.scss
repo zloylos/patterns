@@ -787,8 +787,11 @@ article.smaller {
 }
 
 .thank-you-slide {
-  background: $brand-blue !important;
-  color: white;
+  color: black;
+  
+  a {
+    color: $brand-red !important;
+  }
 
   h2 {
     font-size: 60px;
