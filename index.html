@@ -100,6 +100,7 @@ URL: https://code.google.com/p/io-2012-slides
 </slide>
 
 <!--   Abstract Factory  -->
+
 <slide>
   <hgroup>
     <h2>Abstract Factory (aka Kit)</h2>
@@ -149,6 +150,7 @@ layoutFactory.prototype = {
 </slide> 
 
 <!--   Builder -->
+
 <slide>
   <hgroup>
     <h2>Builder</h2>
@@ -205,6 +207,7 @@ GeoObject.prototype = {
 </slide> 
 
 <!-- Factory Method -->
+
 <slide>
   <hgroup>
     <h2>Factory Method</h2>
@@ -266,6 +269,57 @@ geoObjectFactory.prototype = {
     </ul>
   </article>
 </slide> 
+
+<!-- Prototype -->
+
+<slide>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    Задает виды создаваемых обектов с помощью экземпляра-прототипа и создает новые обекты путем копирования прототипа.
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article class="smaller">
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObject = function (parameters) { 
+  this._type = parameters.type || 'point'; 
+  this.build(); 
+};
+
+GeoObject.prototype = {
+  <b>clone: function () {
+};</pre>
+    <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/GeoObject.xml">GeoObject</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <aside class="note">
+    <section>
+      <p>Напомнить о различии между build и абстрактной фабрикой: первый пошагово, второй полностью и связно</p>
+    </section>
+  </aside>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>позволяет изменять внутреннее представление</li>
+      <li>изолирует код, реализующий конструирование</li>
+      <li>дает более тонкий контроль над процессом конструирования</li>
+    </ul>
+  </article>
+</slide> 
+
 
 <slide class="thank-you-slide segue nobackground">
   <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
