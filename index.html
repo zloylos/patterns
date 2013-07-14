@@ -53,7 +53,7 @@ URL: https://code.google.com/p/io-2012-slides
   </hgroup>
   <article>
     <blockquote class="centered" style="margin-top: 4em;">
-      Повторимая архитектурная конструкция, представляющая собой решение проблемы проектирования в рамках некоторого часто возникающего контекста.
+      <p>Повторимая архитектурная конструкция, представляющая собой решение проблемы проектирования в рамках некоторого часто возникающего контекста.</p>
     </blockquote>
     <footer class="source">© Вики (ru.wikipedia.org/wiki/Шаблон_проектирования)</footer>
   </article>
@@ -107,7 +107,7 @@ URL: https://code.google.com/p/io-2012-slides
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых объектов, не специфицируя их конкретных классов.
+    <p>Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых объектов, не специфицируя их конкретных классов.</p>
   </article>
 </slide>
 
@@ -157,7 +157,7 @@ layoutFactory.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Отделяет конструирование сложного объекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	
+    <p>Отделяет конструирование сложного объекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	</p>
   </article>
 </slide>
 
@@ -214,7 +214,7 @@ GeoObject.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Определяет интерфейс для создания объекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам. 
+    <p>Определяет интерфейс для создания объекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам.</p>
   </article>
 </slide>
 
@@ -278,47 +278,122 @@ geoObjectFactory.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Задает виды создаваемых объектов с помощью экземпляра-прототипа и создает новые объекты путем копирования прототипа.
-  </article>
-</slide>
-
-<slide>
-  <hgroup>
-    <h2>Prototype</h2>
-    <h3>Как реализовать в JS</h3>
-  </hgroup>
-  <article class="smaller">
-    <pre class="prettyprint" data-lang="javascript">
-var GeoObject = function (parameters) { 
-  this._type = parameters.type || 'point'; 
-  this.build(); 
-};
-
-GeoObject.prototype = {
-  <b>clone: function () {}</b>
-};</pre>
-    <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/GeoObject.xml">GeoObject</a></footer>
+    <p>Задает виды создаваемых объектов с помощью экземпляра-прототипа и создает новые объекты путем копирования прототипа.</p>
   </article>
 </slide>
 
 <slide>
   <aside class="note">
     <section>
-      <p>Напомнить о различии между build и абстрактной фабрикой: первый пошагово, второй полностью и связно</p>
+      <p>Рассказать о базовых классах на примере GeoObject</p>
     </section>
   </aside>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article class="smaller">
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObject = function (parameters) { };
+GeoObject.prototype = {
+  <b>clone: function () {
+    var clone = {}, 
+        keys = Object.keys(this);
+        
+    for (var key in keys) {
+      if (this.hasOwnProperty(key)) {
+        clone[key] = this[key];
+      }
+    }
+    return clone;
+  }</b>
+};</pre>
+  <footer class="source">Можно глянуть <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.bind.xml">util.bind</a> и <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.augment.xml">util.augment</a></footer>
+  </article>
+</slide>
+
+<slide>
   <hgroup>
     <h2>Prototype</h2>
     <h3>Особенности</h3>
   </hgroup>
   <article>
     <ul class="build">
-      <li>позволяет изменять внутреннее представление</li>
-      <li>изолирует код, реализующий конструирование</li>
-      <li>дает более тонкий контроль над процессом конструирования</li>
+      <li>спецификация новых объектов</li>
+      <li>уменьшение числа подклассов</li>
+      <li>добавление / удаление элементов во время выполнения</li>
     </ul>
   </article>
 </slide> 
+
+<!-- Singleton -->
+
+<slide>
+  <hgroup>
+    <h2>Singletone</h2>
+  </hgroup>
+  <article>
+    <p>Гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Как реализовать в JS # вариант 1</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var singleton = (function () {
+  var self = this;
+  var _private = function () {};
+  var public = function () {};
+  return {
+    publicFunction: public,
+    hello: function () { console.log('hello, world'); }
+  };
+})();</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Как реализовать в JS # вариант 2</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var singleton = {
+  staticMethod: function () {},
+  hello: function () {
+    console.log('hello, world!');
+  }
+};</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Контролируемый доступ к единственному экземпляру</li>
+      <li>уменьшение числа имен</li>
+      <li>большая гибкость, чем у классов</li>
+    </ul>
+  </article>
+</slide> 
+
+<!-- / end singleton -->
+
+<slide class="fill nobackground" style="background-image: url(images/gifs/structure.gif);">
+  <hgroup>
+    <h2 class="white">Структурные паттерны</h2>
+  </hgroup>
+</slide>
+
 
 
 <slide class="thank-you-slide segue nobackground">
