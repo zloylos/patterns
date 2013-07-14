@@ -122,7 +122,8 @@ var layoutFactory = {};
 layoutFactory.prototype = {
   LayoutClass: ymaps.Layout,
   <b>createLayout: function (html) { 
-    var layout = new LayoutClass(html);
+    var template = new Template(html),
+        layout = new LayoutClass(template);
     layout.options.set('name', 'Layout Factory item');
     return layout;
   }</b>
@@ -138,7 +139,7 @@ layoutFactory.prototype = {
       <h3>Особенности</h3>
     </hgroup>
     <article>
-      <ul>
+      <ul class="build">
         <li>Изолирует конкретные классы</li>
         <li>упрощает замену классов</li>
         <li>гарантирует сочетаемость</li>
@@ -186,15 +187,84 @@ GeoObject.prototype = {
   </slide>
 
   <slide>
+    <aside class="note">
+      <section>
+        <p>Напомнить о различии между build и абстрактной фабрикой: первый пошагово, второй полностью и связно</p>
+      </section>
+    </aside>
     <hgroup>
       <h2>Bulder</h2>
       <h3>Особенности</h3>
     </hgroup>
     <article>
-      <ul>
+      <ul class="build">
         <li>позволяет изменять внутреннее представление</li>
         <li>изолирует код, реализующий конструирование</li>
         <li>дает более тонкий контроль над процессом конструирования</li>
+      </ul>
+    </article>
+  </slide> 
+
+<!-- Factory Method -->
+  <slide>
+  	<hgroup>
+	  	<h2>Factory Method</h2>
+	  	<h3>Порождающие паттерны</h3>
+  	</hgroup>
+  	<article>
+	  	Определяет интерфейс для создания обекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам. 
+  	</article>
+  </slide>
+
+  <slide>
+  	<hgroup>
+	  	<h2>Factory Method</h2>
+	  	<h3>Как реализовать в JS</h3>
+  	</hgroup>
+  	<article>
+  	  <pre class="prettyprint" data-lang="javascript">
+var geoObjectFactory = {};
+geoObjectFactory.prototype = {
+  <b>createGeoObject = function (parameters) {
+    var type = parameters.type || "point",
+        geoObj;
+    switch (parameters.type) {
+      case "point": geoObj = new ymaps.Point(parameters.data); break;
+      case "circle": geoObj = new ymaps.Circle(parameters.data); break;
+    };
+    return geoObj;
+  }</b>
+};</pre>
+  	</article>
+  </slide>
+
+  <slide>
+  	<hgroup>
+	  	<h2>Factory Method</h2>
+	  	<h3>Как реализовать в JS</h3>
+  	</hgroup>
+  	<article>
+  	  <pre class="prettyprint" data-lang="javascript">
+var geoObjectFactory = {};
+geoObjectFactory.prototype = {
+  <b>createPoint: function (data) { return new ymaps.Point(data); },
+  createCircle: function (data) { return new ymaps.Circle(data); },
+  createPolyline: function (data) { return new ymaps.Polilyne(data); }</b>
+};</pre>
+  	</article>
+  </slide>
+
+ 
+  <slide>
+    <hgroup>
+      <h2>Factory Method</h2>
+      <h3>Особенности</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Предоставляет подклассам хуки</li>
+        <li>соединяет параллельные иерархии</li>
+        <li>удобно обединять дробное в более цельные сущности</li>
       </ul>
     </article>
   </slide> 
