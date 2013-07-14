@@ -107,7 +107,7 @@ URL: https://code.google.com/p/io-2012-slides
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых обектов, не специфицируя их конкретных классов.
+    Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых объектов, не специфицируя их конкретных классов.
   </article>
 </slide>
 
@@ -144,7 +144,7 @@ layoutFactory.prototype = {
       <li>упрощает замену классов</li>
       <li>гарантирует сочетаемость</li>
       <li>сложность поддержки нового вида</li>
-      <li>фабрики как обекты, существующие в 1 экземпляре</li>
+      <li>фабрики как объекты, существующие в 1 экземпляре</li>
     </ul>
   </article>
 </slide> 
@@ -157,7 +157,7 @@ layoutFactory.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Отделяет конструирование сложного обекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	
+    Отделяет конструирование сложного объекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	
   </article>
 </slide>
 
@@ -175,10 +175,10 @@ var GeoObject = function (parameters) {
 
 GeoObject.prototype = {
   <b>build: function () {
-  var geometry;
+    var geometry;
     switch (this._type) {
-    case: 'point': geometry = new ymaps.geometry.Point(data); break;
-    case: 'circle': geometry = new ymaps.geometry.Circle(data); break; 
+      case: 'point': geometry = new ymaps.geometry.Point(data); break;
+      case: 'circle': geometry = new ymaps.geometry.Circle(data); break; 
     }
     this._geometry = geometry;
   }</b>
@@ -214,7 +214,7 @@ GeoObject.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Определяет интерфейс для создания обекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам. 
+    Определяет интерфейс для создания объекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам. 
   </article>
 </slide>
 
@@ -265,7 +265,7 @@ geoObjectFactory.prototype = {
     <ul class="build">
       <li>Предоставляет подклассам хуки</li>
       <li>соединяет параллельные иерархии</li>
-      <li>удобно обединять дробное в более цельные сущности</li>
+      <li>удобно объединять дробное в более цельные сущности</li>
     </ul>
   </article>
 </slide> 
@@ -278,7 +278,7 @@ geoObjectFactory.prototype = {
     <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
-    Задает виды создаваемых обектов с помощью экземпляра-прототипа и создает новые обекты путем копирования прототипа.
+    Задает виды создаваемых объектов с помощью экземпляра-прототипа и создает новые объекты путем копирования прототипа.
   </article>
 </slide>
 
@@ -295,7 +295,7 @@ var GeoObject = function (parameters) {
 };
 
 GeoObject.prototype = {
-  <b>clone: function () {
+  <b>clone: function () {}</b>
 };</pre>
     <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/GeoObject.xml">GeoObject</a></footer>
   </article>
