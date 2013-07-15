@@ -101,12 +101,27 @@ URL: https://code.google.com/p/io-2012-slides
     <h2>Adapter</h2>
     <h3>Как реализовать в JS</h3>
   </hgroup>
-  <article>
+  <article class="smaller">
     <pre class="prettyprint" data-lang="javascript">
-var PaneAdapter = function (map) {
+<b>var HtmlElementAdapter</b> = function (map) {
   this._map = map;
+  this._mapContainerElem = map.container.getElement();
 };
-PaneAdapter.prototy
+HtmlElementAdapter.prototype = {
+  insert: function (htmlNode) {
+    this._mapContainerElem.appendChild(htmlNode);
+  },
+  remove: function (htmlNode) {
+    this._mapContainerElem.removeChild(htmlNode);
+  },
+  getSize: function () { return this_map.container.getSize(); }
+};
+…
+  // @param {NodeController || Map} node
+  <b>method: function (node) {
+    this._nodeController = node instanceOf "Map" ? new HtmlElementAdapter(node) : node;
+  }</b>
+…
 </pre>
   </article>
 </slide>
