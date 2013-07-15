@@ -1,0 +1,431 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/yndx.css">	
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+<slides class="layout-widescreen">
+
+<slide class="logoslide nobackground">
+  <article class="flexbox vcenter">
+    <span><img src="images/yandex_eng_logo.svg"></span>
+    <footer class="source">Техновстречи Яндекс.Карт</footer>
+  </article>
+</slide>
+
+<slide class="title-slide segue nobackground">
+  <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
+  <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+  <hgroup class="auto-fadein">
+    <h1 data-config-title><!-- populated from slide_config.json --></h1>
+<!--     <h3 style="color: gray"></h3> -->
+    <h2>&lt;part 1&gt;</h2>
+    <p data-config-presenter><!-- populated from slide_config.json --></p>
+  </hgroup>
+</slide>
+
+
+<!-- start presentation slides -->
+
+<slide>
+  <hgroup>
+    <h2>Виды паттернов</h2>
+  </hgroup>
+  <article>
+    <ul>
+      <li>Порождающие</li>
+      <li class="red">Структурные</li>
+      <li>Поведенческие</li>
+    </ul>
+  </article>
+</slide>
+
+<slide class="fill nobackground" style="background-image: url(images/gifs/structure.gif);">
+  <hgroup>
+    <h2 class="white">Структурные паттерны</h2>
+  </hgroup>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Структурные паттерны</h2>
+  </hgroup>
+  <article>
+    <div class="columns-2">
+      <ul>
+        <li>Adapter</li>
+        <li>Bridge</li>
+        <li>Composite</li>
+        <li>Decorator</li>
+        <li>Facade</li>
+        <li>Flyweight</li>
+        <li>Proxy</li>
+      </ul>
+    </div>
+  </article>
+</slide>
+
+<!-- Adapter -->
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Преобразует интерфейс одного класса в интерфейс другого. Адаптер обеспечивает совместную работу классов с несовместимыми интерфейсами, которая без него была бы невозможна.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var PaneAdapter = function (map) {
+  this._map = map;
+};
+PaneAdapter.prototy
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Сменные адаптеры</li>
+      <li>сохранение обратной совместимости</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- bridge -->
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Отделяет абстракцию от ее реализации так, чтобы то и другое можно было изменять независимо.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+<b>var ILayer</b> = function () {
+  this.events = new ymaps.event.Manager();
+  this.options = new ymaps.options.Manager();
+};
+ILayer.prototype = {
+  getBrightness: function () {},
+  getParent: function () {}
+};
+<b>var Layer</b> = function () { /* constructor */ };
+<b>ymaps.util.augment(ILayer, Layer, {</b>
+  getBrightness: function () { return 1; }
+<b>});</b>
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Отделение реализации от интерфейса</li>
+      <li>повышение степени расширяемости</li>
+      <li>сокрытие деталей реализации от клиентов</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Composite -->
+
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Компонует объекты в древовидные структуры для представления иерархий часть-целое. Позволяет клиентам единообразно трактовать индивидуальные и составные части.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var parentComponent = ymaps.option.Manager();
+<b>var childComponent = ymaps.option.Manager(null, parentComponent);</b>
+
+parentComponent.set('key', val);
+<b>parentComponent.set('child', childComponent);</b>
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>определяет иерархии классов</li>
+      <li>упрощает архитектуру клиента</li>
+      <li>облегчает добавление новых видов компонентов</li>
+      <li>способствует созданию общего дизайна</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Decorator -->
+
+<slide>
+  <hgroup>
+    <h2>Decorator (aka Wrapper)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Динамически добавляет объекту новые обязанности. Является гибкой альтернативой порождению подклассов с целью расширения функциональности.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Decorator</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObjectWidthBlackJack = function () { 
+  this.geoObj = new ymaps.GeoObject(…); 
+  <b>var decorator = new Decorator(this);
+  decorator.addToMap();</b>
+};
+
+var Decorator = function (parent) { this._parent = parent};
+Decorator.prototype = {
+  <b>addToMap: function () {
+    map.geoObjects.add(this._parent.geoObj);
+  }</b>
+}</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Decorator</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Большая гибкость, чем у ст.наслед.</li>
+      <li>позволяет избежать перегруженных функциями классов</li>
+      <li>декоратор и его компонент не идентичны</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Facade -->
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Предоставляет унифицированный интерфейс вместо набора интерфейсов некоторой подсистемы. Определяет интерфейс более высокого уровня</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+// Добавление в GeoQueryResult массива геообъектов.
+var objects = [
+  new ymaps.Placemark([34, 56]),
+  new ymaps.Rectangle([[34, 56], [36, 57]])
+];
+// Обратите внимание, что в результате будет получен другой объект GeoQueryResult,
+// а старый останется без изменений.
+<b>var newResult = myGeoQueryResult.add(objects);</b>
+</pre>
+  <footer class="source">Пример в API <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/geoQuery.xml">geoQuery</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Изолирует клиентов от компонентов подсистемы</li>
+      <li>позволяет ослабить связность между подсистемой и клиентами</li>
+      <li>фасад не препятствует прямой работе с классами</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Flyweight -->
+
+<slide>
+  <hgroup>
+    <h2>Flyweight (приспособленец)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Использует разделение для эффективной поддержки множества мелких объектов.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Flyweight</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+// создадим карту, на которой необходимо кластеризовать геообъекты
+var map = new ymaps.Map('mapsID', {center: [56.034, 36.992], zoom: 8}),
+    myGeoObjects = [];
+<b>myGeoObjects[0] = new ymaps.GeoObject([56.034, 36.992]);
+myGeoObjects[1] = new ymaps.GeoObject([56.021, 36.983]);</b>
+
+// создадим кластеризатор и запретим приближать карту при клике на кластеры
+var clusterer = new ymaps.Clusterer({clusterDisableClickZoom: true});
+<b>clusterer.add(myGeoObjects);</b>
+map.geoObjects.add(clusterer);
+</pre>
+  <footer class="source">Да здравствует кластеризатор <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml">Clusterer</a> + можно глянуть <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/ILayout.xml">ILayout</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Flyweight</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>уменьшение общего числа элементов</li>
+      <li>сокращение объема памяти</li>
+      <li>вычисление, а не хранение внешнего состояния</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Proxy -->
+
+<slide>
+  <hgroup>
+    <h2>Proxy (aka Surrogate)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Является суррогатом другого объекта и контролирует доступ к нему.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Proxy</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+geObject.prototype = {
+  <b>getLayout: function () {</b>
+    <b>var promise = ymaps.util.Promise();</b>
+    if (this._layout) {
+      promise.fullFill(this._layout);
+    } else {
+      this._layout = new LayoutClass(promise); // асинхронное создание
+      promise.fullFill(this._layout);
+    }
+    <b>return promise;
+  }</b>
+}</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Proxy</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>создание объекта по требованию</li>
+      <li>решает дополнительные задачи по доступу к объекту</li>
+      <li>можно скрыть тот факт, что объект находится в другом адресном пространстве</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- /end proxy -->
+
+<slide class="thank-you-slide segue nobackground">
+  <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
+  <article class="flexbox vleft auto-fadein">
+    <h2>Спасибо!</h2>
+    <h3 style="color: gray">&lt;/ part 2&gt;</h3>
+  </article>
+  <p class="auto-fadein" data-config-contact>
+    <!-- populated from slide_config.json -->
+  </p>
+</slide>
+
+<!-- end part 2 -->
+<slide class="backdrop"></slide>
+
+</slides>
+<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

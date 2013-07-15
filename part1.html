@@ -1,0 +1,393 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/yndx.css">	
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+<slides class="layout-widescreen">
+
+<slide class="logoslide nobackground">
+  <article class="flexbox vcenter">
+    <span><img src="images/yandex_eng_logo.svg"></span>
+    <footer class="source">Техновстречи Яндекс.Карт</footer>
+  </article>
+</slide>
+
+<slide class="title-slide segue nobackground">
+  <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
+  <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+  <hgroup class="auto-fadein">
+    <h1 data-config-title><!-- populated from slide_config.json --></h1>
+    <h2>&lt;part 1&gt;</h2>
+    <p data-config-presenter><!-- populated from slide_config.json --></p>
+  </hgroup>
+</slide>
+
+<!-- start presentation slides -->
+
+<slide>
+  <hgroup>
+    <h2>Виды паттернов</h2>
+  </hgroup>
+  <article>
+    <ul>
+      <li class="red">Порождающие</li>
+      <li>Структурные</li>
+      <li>Поведенческие</li>
+    </ul>
+  </article>
+</slide>
+
+<slide class="fill nobackground" style="background-image: url(images/gifs/fabric.gif);">
+  <hgroup>
+    <h2 class="white">Порождающие паттерны</h2>
+  </hgroup>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Порождающие паттерны</h2>
+  </hgroup>
+  <article>
+    <ul>
+      <li>Abstract Factory</li>
+      <li>Builder</li>
+      <li>Factory Method</li>
+      <li>Prototype</li>
+      <li>Singleton</li>
+    </ul>
+  </article>
+</slide>
+
+<!--   Abstract Factory  -->
+
+<slide>
+  <hgroup>
+    <h2>Abstract Factory (aka Kit)</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Предоставляет интерфейс для создания семейств взаимосвязанных или взаимозависимых объектов, не специфицируя их конкретных классов.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Abstract Factory</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+layoutFactory.prototype = {
+  <b>createLayout: function (html, overriding) { 
+    var ChildClass = function () {
+      this._template = new Template(html);
+      ChildClass.superclass.constructor.apply(this, arguments);
+    };
+    ymaps.util.augment(ChildClass, BaseLayoutClass, ymaps.bind.extend({
+      getTemplate: this._getTemplate
+    }, overriding));
+    return ChildClass;
+  }</b>
+};</pre>
+    <footer class="source" style="margin-left: 4em;">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/templateLayoutFactory.xml">templateLayoutFactory</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Abstract Factory</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Изолирует конкретные классы</li>
+      <li>упрощает замену классов</li>
+      <li>гарантирует сочетаемость</li>
+      <li>сложность поддержки нового вида</li>
+      <li>фабрики как объекты, существующие в 1 экземпляре</li>
+    </ul>
+  </article>
+</slide> 
+
+<!--   Builder -->
+
+<slide>
+  <hgroup>
+    <h2>Builder</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Отделяет конструирование сложного объекта от его представления, так что в результате одного и того же процесса конструирования могут получаться разные представления. 	</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Builder</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article class="smaller">
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObject = function (parameters) { 
+  this._type = parameters.type || 'point'; 
+  this.build(); 
+};
+
+GeoObject.prototype = {
+  <b>build: function () {
+    var geometry;
+    switch (this._type) {
+      case: 'point': geometry = new ymaps.geometry.Point(data); break;
+      case: 'circle': geometry = new ymaps.geometry.Circle(data); break; 
+    }
+    this._geometry = geometry;
+  }</b>
+};</pre>
+    <footer class="source">Пример использования: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/GeoObject.xml">GeoObject</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <aside class="note">
+    <section>
+      <p>Напомнить о различии между build и абстрактной фабрикой: первый пошагово, второй полностью и связно</p>
+    </section>
+  </aside>
+  <hgroup>
+    <h2>Bulder</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>позволяет изменять внутреннее представление</li>
+      <li>изолирует код, реализующий конструирование</li>
+      <li>дает более тонкий контроль над процессом конструирования</li>
+    </ul>
+  </article>
+</slide> 
+
+<!-- Factory Method -->
+
+<slide>
+  <hgroup>
+    <h2>Factory Method</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Определяет интерфейс для создания объекта, но оставляет подклассам решение о том, какой класс инстанцировать. Позволяет делигировать инстанцирование подклассам.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Factory Method</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var geoObjectFactory = {};
+geoObjectFactory.prototype = {
+  <b>createGeoObject = function (parameters) {
+    var type = parameters.type || "point",
+        geoObj;
+    switch (parameters.type) {
+      case "point": geoObj = new ymaps.Point(parameters.data); break;
+      case "circle": geoObj = new ymaps.Circle(parameters.data); break;
+    };
+    return geoObj;
+  }</b>
+};</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Factory Method</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var geoObjectFactory = {};
+geoObjectFactory.prototype = {
+  <b>createPoint: function (data) { return new ymaps.Point(data); },
+  createCircle: function (data) { return new ymaps.Circle(data); },
+  createPolyline: function (data) { return new ymaps.Polilyne(data); }</b>
+};</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Factory Method</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Предоставляет подклассам хуки</li>
+      <li>соединяет параллельные иерархии</li>
+      <li>удобно объединять дробное в более цельные сущности</li>
+    </ul>
+  </article>
+</slide> 
+
+<!-- Prototype -->
+
+<slide>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Задает виды создаваемых объектов с помощью экземпляра-прототипа и создает новые объекты путем копирования прототипа.</p>
+  </article>
+</slide>
+
+<slide>
+  <aside class="note">
+    <section>
+      <p>Рассказать о базовых классах на примере GeoObject</p>
+    </section>
+  </aside>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article class="smaller">
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObject = function (parameters) { };
+GeoObject.prototype = {
+  <b>clone: function () {
+    var clone = {}, 
+        keys = Object.keys(this);
+        
+    for (var key in keys) {
+      if (this.hasOwnProperty(key)) {
+        clone[key] = this[key];
+      }
+    }
+    return clone;
+  }</b>
+};</pre>
+  <footer class="source">Можно глянуть <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.bind.xml">util.bind</a> и <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.augment.xml">util.augment</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Prototype</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>спецификация новых объектов</li>
+      <li>уменьшение числа подклассов</li>
+      <li>добавление / удаление элементов во время выполнения</li>
+    </ul>
+  </article>
+</slide> 
+
+<!-- Singleton -->
+
+<slide>
+  <hgroup>
+    <h2>Singletone</h2>
+    <h3>Порождающие паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Как реализовать в JS # вариант 1</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var singleton = (function () {
+  var self = this;
+  var _private = function () {};
+  var public = function () {};
+  return {
+    publicFunction: public,
+    hello: function () { console.log('hello, world'); }
+  };
+})();</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Как реализовать в JS # вариант 2</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var singleton = {
+  staticMethod: function () {},
+  hello: function () {
+    console.log('hello, world!');
+  }
+};</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Singleton</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Контролируемый доступ к единственному экземпляру</li>
+      <li>уменьшение числа имен</li>
+      <li>большая гибкость, чем у классов</li>
+    </ul>
+  </article>
+</slide> 
+
+<!-- / end singleton -->
+
+<slide class="thank-you-slide segue nobackground">
+  <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
+  <article class="flexbox vleft auto-fadein">
+    <h2>Спасибо!</h2>
+    <h3 style="color: gray">&lt;/ part 1&gt;</h3>
+  </article>
+  <p class="auto-fadein" data-config-contact>
+    <!-- populated from slide_config.json -->
+  </p>
+</slide>
+
+<!-- / end part 1 -->
+<slide class="backdrop"></slide>
+
+</slides>
+<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
