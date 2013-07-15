@@ -511,7 +511,46 @@ ILayer.prototype = {
 
 <!-- Composite -->
 
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Компонует объекты в древовидные структуры для представления иерархий часть-целое. Позволяет клиентам единообразно трактовать индивидуальные и составные части.</p>
+  </article>
+</slide>
 
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var parentComponent = ymaps.option.Manager();
+<b>var childComponent = ymaps.option.Manager(null, parentComponent);</b>
+
+parentComponent.set('key', val);
+<b>parentComponent.set('child', childComponent);</b>
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Composite</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>определяет иерархии классов</li>
+      <li>упрощает архитектуру клиента</li>
+      <li>облегчает добавление новых видов компонентов</li>
+      <li>способствует созданию общего дизайна</li>
+    </ul>
+  </article>
+</slide>
 
 <!-- the end -->
 
