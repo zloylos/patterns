@@ -676,7 +676,7 @@ var clusterer = new ymaps.Clusterer({clusterDisableClickZoom: true});
 <b>clusterer.add(myGeoObjects);</b>
 map.geoObjects.add(clusterer);
 </pre>
-  <footer class="source">Да здравствует кластеризатор <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml">Clusterer</a></footer>
+  <footer class="source">Да здравствует кластеризатор <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml">Clusterer</a> + можно глянуть <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/ILayout.xml">ILayout</a></footer>
   </article>
 </slide>
 
@@ -690,6 +690,54 @@ map.geoObjects.add(clusterer);
       <li>уменьшение общего числа элементов</li>
       <li>сокращение объема памяти</li>
       <li>вычисление, а не хранение внешнего состояния</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Proxy -->
+
+<slide>
+  <hgroup>
+    <h2>Proxy (aka Surrogate)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Является суррогатом другого объекта и контролирует доступ к нему.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Proxy</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+geObject.prototype = {
+  <b>getLayout: function () {</b>
+    <b>var promise = ymaps.util.Promise();</b>
+    if (this._layout) {
+      promise.fullFill(this._layout);
+    } else {
+      this._layout = new LayoutClass(promise); // асинхронное создание
+      promise.fullFill(this._layout);
+    }
+    <b>return promise;
+  }</b>
+}</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Proxy</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>создание объекта по требованию</li>
+      <li>решает дополнительные задачи по доступу к объекту</li>
+      <li>можно скрыть тот факт, что объект находится в другом адресном пространстве</li>
     </ul>
   </article>
 </slide>
