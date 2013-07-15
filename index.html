@@ -582,8 +582,7 @@ Decorator.prototype = {
   <b>addToMap: function () {
     map.geoObjects.add(this._parent.geoObj);
   }</b>
-}
-</pre>
+}</pre>
   </article>
 </slide>
 
@@ -597,6 +596,52 @@ Decorator.prototype = {
       <li>Большая гибкость, чем у ст.наслед.</li>
       <li>позволяет избежать перегруженных функциями классов</li>
       <li>декоратор и его компонент не идентичны</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Facade -->
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Предоставляет унифицированный интерфейс вместо набора интерфейсов некоторой подсистемы. Определяет интерфейс более высокого уровня</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+// Добавление в GeoQueryResult массива геообъектов.
+var objects = [
+  new ymaps.Placemark([34, 56]),
+  new ymaps.Rectangle([[34, 56], [36, 57]])
+];
+// Обратите внимание, что в результате будет получен другой объект GeoQueryResult,
+// а старый останется без изменений.
+<b>var newResult = myGeoQueryResult.add(objects);</b>
+</pre>
+  <footer class="source">Пример в API <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/geoQuery.xml">geoQuery</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Facade</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Изолирует клиентов от компонентов подсистемы</li>
+      <li>позволяет ослабить связность между подсистемой и клиентами</li>
+      <li>фасад не припятствует прямой работе с классами</li>
     </ul>
   </article>
 </slide>
