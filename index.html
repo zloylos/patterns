@@ -552,6 +552,55 @@ parentComponent.set('key', val);
   </article>
 </slide>
 
+<!-- Decorator -->
+
+<slide>
+  <hgroup>
+    <h2>Decorator (aka Wrapper)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Динамически добавляет объекту новые обязанности. Является гибкой альтернативой порождению подклассов с целью расширения функциональности.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Decorator</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var GeoObjectWidthBlackJack = function () { 
+  this.geoObj = new ymaps.GeoObject(…); 
+  <b>var decorator = new Decorator(this);
+  decorator.addToMap();</b>
+};
+
+var Decorator = function (parent) { this._parent = parent};
+Decorator.prototype = {
+  <b>addToMap: function () {
+    map.geoObjects.add(this._parent.geoObj);
+  }</b>
+}
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Decorator</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Большая гибкость, чем у ст.наслед.</li>
+      <li>позволяет избежать перегруженных функциями классов</li>
+      <li>декоратор и его компонент не идентичны</li>
+    </ul>
+  </article>
+</slide>
+
 <!-- the end -->
 
 <slide class="thank-you-slide segue nobackground">
