@@ -453,7 +453,7 @@ TrafficJam.prototype = {
     <h3>Особенности</h3>
   </hgroup>
   <article>
-    <ul>
+    <ul class="build">
       <li>Сменные адаптеры</li>
       <li>сохранение обратной совместимости</li>
     </ul>
@@ -461,6 +461,56 @@ TrafficJam.prototype = {
 </slide>
 
 <!-- bridge -->
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Отделяет абстракцию от ее реализации так, чтобы то и другое можно было изменять независимо.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+<b>var ILayer</b> = function () {
+  this.events = new ymaps.event.Manager();
+  this.options = new ymaps.options.Manager();
+};
+ILayer.prototype = {
+  getBrightness: function () {},
+  getParent: function () {}
+};
+<b>var Layer</b> = function () { /* constructor */ };
+<b>ymaps.util.augment(ILayer, Layer, {</b>
+  getBrightness: function () { return 1; }
+<b>});</b>
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Bridge</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>Отделение реализации от интерфейса</li>
+      <li>повышение степени расширяемости</li>
+      <li>сокрытие деталей реализации от клиентов</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Composite -->
+
 
 
 <!-- the end -->
