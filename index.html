@@ -641,7 +641,55 @@ var objects = [
     <ul class="build">
       <li>Изолирует клиентов от компонентов подсистемы</li>
       <li>позволяет ослабить связность между подсистемой и клиентами</li>
-      <li>фасад не припятствует прямой работе с классами</li>
+      <li>фасад не препятствует прямой работе с классами</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- Flyweight -->
+
+<slide>
+  <hgroup>
+    <h2>Flyweight (приспособленец)</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Использует разделение для эффективной поддержки множества мелких объектов.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Flyweight</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+// создадим карту, на которой необходимо кластеризовать геообъекты
+var map = new ymaps.Map('mapsID', {center: [56.034, 36.992], zoom: 8}),
+    myGeoObjects = [];
+<b>myGeoObjects[0] = new ymaps.GeoObject([56.034, 36.992]);
+myGeoObjects[1] = new ymaps.GeoObject([56.021, 36.983]);</b>
+
+// создадим кластеризатор и запретим приближать карту при клике на кластеры
+var clusterer = new ymaps.Clusterer({clusterDisableClickZoom: true});
+<b>clusterer.add(myGeoObjects);</b>
+map.geoObjects.add(clusterer);
+</pre>
+  <footer class="source">Да здравствует кластеризатор <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml">Clusterer</a></footer>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Flyweight</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul class="build">
+      <li>уменьшение общего числа элементов</li>
+      <li>сокращение объема памяти</li>
+      <li>вычисление, а не хранение внешнего состояния</li>
     </ul>
   </article>
 </slide>
