@@ -331,6 +331,7 @@ GeoObject.prototype = {
 <slide>
   <hgroup>
     <h2>Singletone</h2>
+    <h3>Порождающие паттерны</h3>
   </hgroup>
   <article>
     <p>Гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.</p>
@@ -394,7 +395,75 @@ var singleton = {
   </hgroup>
 </slide>
 
+<slide>
+  <hgroup>
+    <h2>Структурные паттерны</h2>
+  </hgroup>
+  <article>
+    <div class="columns-2">
+      <ul>
+        <li>Adapter</li>
+        <li>Bridge</li>
+        <li>Composite</li>
+        <li>Decorator</li>
+        <li>Facade</li>
+        <li>Flyweight</li>
+        <li>Proxy</li>
+      </ul>
+    </div>
+  </article>
+</slide>
 
+<!-- Adapter -->
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Структурные паттерны</h3>
+  </hgroup>
+  <article>
+    <p>Преобразует интерфейс одного класса в интерфейс другого. Адаптер обеспечивает совместную работу классов с несовместимыми интерфейсами, которая без него была бы невозможна.</p>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Как реализовать в JS</h3>
+  </hgroup>
+  <article>
+    <pre class="prettyprint" data-lang="javascript">
+var TrafficJam = function () {…};
+TrafficJam.prototype = {
+  getLevel: function () {
+    var level = new ymaps.util.Promise();
+    $.ajax({
+      url: 'http://url-to-traffic-provider',
+      dataType: 'json',
+      data: { need: 'level' }
+    }).done(<b>function (json) { level.fullFill(json.level); }</b>);
+    return level;
+  }
+}</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Adapter</h2>
+    <h3>Особенности</h3>
+  </hgroup>
+  <article>
+    <ul>
+      <li>Сменные адаптеры</li>
+      <li>сохранение обратной совместимости</li>
+    </ul>
+  </article>
+</slide>
+
+<!-- bridge -->
+
+
+<!-- the end -->
 
 <slide class="thank-you-slide segue nobackground">
   <aside class="gdbar"><img src="images/yandex_eng_logo.svg"></aside>
