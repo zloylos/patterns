@@ -313,22 +313,19 @@ geoObjectFactory.prototype = {
     <h2>Prototype</h2>
     <h3>Как реализовать в JS</h3>
   </hgroup>
-  <article class="smaller">
+  <article>
     <pre class="prettyprint" data-lang="javascript">
-var GeoObject = function (parameters) { };
-GeoObject.prototype = {
-  <b>clone: function () {
-    var clone = {}, 
-        keys = Object.keys(this);
-        
-    for (var key in keys) {
-      if (this.hasOwnProperty(key)) {
-        clone[key] = this[key];
-      }
-    }
-    return clone;
+var PixelCircleGeometry = function () {}
+PixelCircleGeometry.prototype = {
+  <b>clone: function (coordinates, radius, metaData) {
+    return new PixelCircleGeometry(
+      coordinates || this._coordinates,
+      radius || this._radius,
+      metaData ? imports.util.extend({}, this._metaData, metaData) : this._metaData
+    );
   }</b>
-};</pre>
+}
+</pre>
   <footer class="source">Можно глянуть <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.bind.xml">util.bind</a> и <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/util.augment.xml">util.augment</a></footer>
   </article>
 </slide>
