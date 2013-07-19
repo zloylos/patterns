@@ -372,16 +372,26 @@ PixelCircleGeometry.prototype = {
     <h2>Singleton</h2>
     <h3>Как реализовать в JS # вариант 1</h3>
   </hgroup>
-  <article>
+  <article class="smaller">
     <pre class="prettyprint" data-lang="javascript">
 var singleton = (function () {
-  var self = this;
-  var _private = function () {};
-  var public = function () {};
-  return {
-    publicFunction: public,
-    hello: function () { console.log('hello, world'); }
-  };
+    var instance;
+    function init () {
+        function privateMethod () {}
+        var privateVar = 'hey';
+        return {
+            publicMethod: function () {},
+            publicProp: 'hey-hey',
+        }
+    }
+    return {
+        getInstance = function () {
+            if (!instance) {
+                instance = init();
+            }
+            return instance;
+        }
+    }
 })();</pre>
   </article>
 </slide>
